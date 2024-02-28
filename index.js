@@ -3,9 +3,20 @@
 
 
 const API_URL_STATIC_PART = 'https://api.github.com/search/users?q='
+const cardsElement = document.querySelector('.cards');
+const setSearchResult = (data) => {
+	let result = ``;
+	data.map((item) => {
+		result += `<article class="card">
+	<a target="_blank" href="${item.html_url}">
+	<img src="${item.avatar_url}" loading="lazy" class="img">
+	</a>
+	<h2 class="name">${item.login}</h2>
 
-const setSearchResult = (response) => {
-	console.log('Show Result');
+	</article>`
+	}
+	);
+	cardsElement.innerHTML = result;
 };
 
 const performSearch = (githubUser, isUserSelected) => {
@@ -14,8 +25,8 @@ const performSearch = (githubUser, isUserSelected) => {
 	// console.log(`${githubUser}  +  ${githubUserType}`);
 
 	fetch(`${API_URL_STATIC_PART} ${githubUser}${githubUserType}`)
-		.then((result) => result.json)
-		.then((response) => setSearchResult(response));
+		.then((result) => result.json())
+		.then((response) => setSearchResult(response.items));
 
 };
 
