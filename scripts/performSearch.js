@@ -1,3 +1,4 @@
+import startLoader, { endLoader } from "./loaderStatus";
 import setMessage from "./setMessage";
 import setSearchResult from "./setSearchResult";
 
@@ -10,10 +11,13 @@ export const performSearch = (githubUser, isUserSelected) => {
 		// setMessage()
 		return;
 	}
+	startLoader();
+
 	const githubUserType = isUserSelected ? '+type:user' : '+type:org';
 	// console.log(`${githubUser}  +  ${githubUserType}`);
 
 	fetch(`${API_URL_STATIC_PART} ${githubUser}${githubUserType}`)
 		.then((result) => result.json())
-		.then((response) => setSearchResult(response.items));
+		.then((response) => setSearchResult(response.items))
+		.finally(() => endLoader());
 };
