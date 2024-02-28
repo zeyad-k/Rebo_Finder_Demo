@@ -6,7 +6,7 @@ const API_URL_STATIC_PART = 'https://api.github.com/search/users?q='
 export const performSearch = (githubUser, isUserSelected) => {
 	setMessage('')
 	if (!githubUser || !githubUser.trim()) {
-		setMessage('This field can not be empty👆🏻😐 ')
+		setMessage('Please fill out the search field, It can`t be empty👆🏻😐 ')
 		// setMessage()
 		return;
 	}
